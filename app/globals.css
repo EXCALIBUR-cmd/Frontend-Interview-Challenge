@@ -2,39 +2,180 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+/* Base styles for light/dark mode */
+@layer base {
+  body {
+    @apply bg-white dark:bg-gray-900 text-gray-900 dark:text-white transition-colors;
+  }
+
+  h1 {
+    @apply text-gray-900 dark:text-white;
+  }
+
+  /* Force high contrast for headings in dark mode */
+  .dark h1, .dark h2, .dark h3 {
+    @apply text-white;
+  }
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+/* Custom calendar styles */
+.appointment {
+  @apply rounded-md p-2 overflow-hidden text-xs cursor-pointer transition-all hover:opacity-90;
+  position: absolute;
+  z-index: 5;
+  overflow: hidden;
 }
 
-/* Custom appointment type colors (from types) */
+/* Time slots */
+.time-slot {
+  @apply border-t border-gray-200 dark:border-gray-700 py-2 relative;
+}
+
+/* Calendar container */
+.calendar-container {
+  @apply bg-white dark:bg-gray-800 rounded-lg shadow dark:shadow-gray-900 overflow-hidden;
+}
+
+/* Calendar header */
+.calendar-header {
+  @apply px-4 py-3 bg-gray-100 dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700;
+}
+
+/* Day/week header */
+.week-day-header {
+  @apply font-medium text-center p-2 bg-gray-50 dark:bg-gray-800 sticky top-0 z-10;
+}
+
+/* Current time indicator */
+.current-time-indicator {
+  @apply absolute left-0 right-0 h-0.5 bg-red-500 z-10;
+}
+
+/* Navigation buttons */
+.nav-button {
+  @apply bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 
+         text-gray-700 dark:text-gray-200 rounded-md p-2
+         hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors;
+}
+
+/* Time slot container */
+.time-slot-container {
+  @apply min-h-[60px] border-b border-gray-100 dark:border-gray-700 relative;
+}
+
+/* Appointment type colors */
 .appointment-checkup {
-  background-color: #3b82f6;
-  border-color: #2563eb;
+  @apply bg-blue-500 dark:bg-blue-600 text-white;
 }
 
 .appointment-consultation {
-  background-color: #10b981;
-  border-color: #059669;
-}
-
-.appointment-follow-up {
-  background-color: #f59e0b;
-  border-color: #d97706;
+  @apply bg-green-500 dark:bg-green-600 text-white;
 }
 
 .appointment-procedure {
-  background-color: #8b5cf6;
-  border-color: #7c3aed;
+  @apply bg-purple-500 dark:bg-purple-600 text-white;
+}
+
+.appointment-follow-up, .appointment-follow_up, .appointment-followup {
+  @apply bg-yellow-500 dark:bg-yellow-600 text-gray-800 dark:text-gray-900;
+}
+
+.appointment-default {
+  @apply bg-gray-500 dark:bg-gray-600 text-white;
+}
+
+/* Doctor info container */
+.doctor-info {
+  @apply bg-white dark:bg-gray-800 p-4 rounded-lg shadow mb-4;
+}
+
+/* Doctor working hours */
+.working-hours {
+  @apply text-gray-600 dark:text-gray-300;
+}
+
+/* Add these responsive styles at the end of your file */
+
+/* Mobile-first responsive adjustments */
+@media (max-width: 640px) {
+  /* Make time slots taller on small screens for better touch targets */
+  .time-slot {
+    @apply py-3;
+  }
+
+  /* Adjust appointment text size for small screens */
+  .appointment {
+    @apply text-[10px];
+    padding: 1px 3px;
+  }
+
+  /* Simplify the header on mobile */
+  .week-day-header {
+    @apply text-xs;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .appointment {
+    @apply text-xs;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) {
+  .appointment {
+    /* Make appointments slightly more prominent on touch devices */
+    @apply opacity-95;
+  }
+
+  /* Add more padding for better touch targets */
+  button, select {
+    @apply py-2 px-3;
+  }
+}
+
+/* Print styles */
+@media print {
+  .appointment {
+    /* Ensure appointments print with borders */
+    border: 1px solid #000 !important;
+    color: #000 !important;
+    break-inside: avoid;
+  }
+
+  /* Remove shadows and backgrounds for printing */
+  .bg-white, .shadow, .rounded-lg {
+    box-shadow: none !important;
+    background-color: white !important;
+  }
+}
+
+/* Add these styles for better select dropdown appearance in dark mode */
+@layer utilities {
+  /* Improve visibility of select options across browsers */
+  .dark select option {
+    background-color: #1f2937 !important; /* dark:bg-gray-800 */
+    color: white !important;
+  }
+
+  /* Style for the select component in dark mode */
+  .dark select {
+    background-color: #1f2937;
+    color: white;
+    border-color: #4b5563;
+  }
+
+  /* Firefox specific styles for dark mode */
+  @-moz-document url-prefix() {
+    .dark select {
+      background-color: #1f2937;
+      color: white;
+    }
+    
+    .dark select option {
+      background-color: #1f2937;
+      color: white;
+    }
+  }
 }

@@ -44,10 +44,18 @@ export type WeeklySchedule = Partial<Record<DayOfWeek, WorkingHours>>;
 export interface Doctor {
   id: string;
   name: string;
-  specialty: Specialty;
+  specialty: string;
   email: string;
   phone: string;
-  workingHours: WeeklySchedule;
+  workingHours?: {
+    monday?: { start: string, end: string };
+    tuesday?: { start: string, end: string };
+    wednesday?: { start: string, end: string };
+    thursday?: { start: string, end: string };
+    friday?: { start: string, end: string };
+    saturday?: { start: string, end: string };
+    sunday?: { start: string, end: string };
+  };
 }
 
 /**
@@ -66,13 +74,13 @@ export interface Patient {
  */
 export interface Appointment {
   id: string;
-  patientId: string;
   doctorId: string;
+  patientId: string;
   type: AppointmentType;
-  startTime: string;     // ISO datetime string
-  endTime: string;       // ISO datetime string
+  startTime: string;
+  endTime: string;
+  status: 'scheduled' | 'completed' | 'cancelled';
   notes?: string;
-  status: AppointmentStatus;
 }
 
 /**

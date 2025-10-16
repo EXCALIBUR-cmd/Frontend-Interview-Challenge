@@ -296,3 +296,43 @@ export function getAppointmentsByDoctorAndDateRange(
     return aptStart >= startDate && aptStart <= endDate;
   });
 }
+
+// Add the mockPatients export if it doesn't exist
+export const mockPatients = [
+  {
+    id: 'patient1',
+    name: 'John Doe',
+    dob: new Date(1980, 5, 15),
+    contact: {
+      email: 'john.doe@example.com',
+      phone: '555-123-4567'
+    }
+  },
+  {
+    id: 'patient2',
+    name: 'Jane Smith',
+    dob: new Date(1975, 8, 22),
+    contact: {
+      email: 'jane.smith@example.com',
+      phone: '555-987-6543'
+    }
+  },
+  {
+    id: 'patient3',
+    name: 'Michael Johnson',
+    dob: new Date(1990, 2, 10),
+    contact: {
+      email: 'michael.johnson@example.com',
+      phone: '555-456-7890'
+    }
+  },
+  {
+    id: 'patient4',
+    name: 'Sarah Williams',
+    dob: new Date(1988, 11, 3),
+    contact: {
+      email: 'sarah.williams@example.com',
+      phone: '555-789-0123'
+    }
+  }
+];
